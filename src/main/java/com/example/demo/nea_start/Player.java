@@ -95,7 +95,7 @@ public class Player extends Rectangle {
         double angleIncrement = FOV / ray.size();
 
         for (int i = 0; i < ray.size(); i++) {
-           ray.get(i).updateRay(getX() + getWidth() / 2, getY() + getHeight() / 2, startAngle + i * angleIncrement);
+           ray.get(i).updateRay(getX() + getWidth() / 2, getY() + getHeight() / 2, startAngle + i * angleIncrement, map);
         }
 
     }
