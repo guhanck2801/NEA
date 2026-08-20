@@ -106,25 +106,41 @@ public class Player extends Rectangle {
         double newX = getX() + dx;
         double newY = getY() + dy;
 
-        // move player if a wall hasn't been detected
-        if (!isWall(newX, newY, map)) {
+        // move player if a wall hasn't been detected, each if statement allows player to slide along wall in the corresponding axis
+        if (!isWall(newX, getY(), map)) {
             setX(newX);
+        }
+
+        if (!isWall(getX(), newY, map)) {
             setY(newY);
         }
     }
 
-    // collison detection
+    // collision detection
     private boolean isWall(double x, double y, int[][] map) {
 
-        int tileX = (int)(x / Main.TILE_SIZE);
-        int tileY = (int)(y / Main.TILE_SIZE);
+        // Get corners of the players
+        double left = x;
+        double right = x + getWidth();
+        double top = y;
+        double bottom = y +getHeight();
 
-        if (tileX < 0 || tileY < 0 ||
-                tileY >= map.length ||
-                tileX >= map[0].length) {
-            return true;
+        // Convert the corners into tiles on the map
+        int leftTile = (int) (left / Main.TILE_SIZE);
+        int rightTile = (int) (right / Main.TILE_SIZE);
+        int topTile = (int) (top / Main.TILE_SIZE);
+        int bottomTile = (int) (bottom / Main.TILE_SIZE);
+
+        // Check all tiles occupied by the player
+        for (int tileY = topTile; tileY <= bottomTile; tileY++) {
+            for (int tileX = leftTile; tileX <= rightTile; tileX++) {
+
+                if (map[tileY][tileX] == 1) {
+                    return true;
+                }
+            }
         }
 
-        return map[tileY][tileX] == 1;
+        return false;
     }
 }
