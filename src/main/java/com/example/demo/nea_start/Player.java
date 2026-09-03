@@ -14,7 +14,7 @@ public class Player extends Rectangle {
     // Create array containing all the rays. Typial FOV in a raycaster is 60 degrees.
     public ArrayList<Raycaster> ray = new ArrayList<>();
     private final double FOV  = 60;
-    private final int numRays = Main.screenWidth;
+    private final int numRays = Main.screenWidth/2;
 
     // assign values for max speed and rotation speed
     private final double maxSpeed = 2.5;

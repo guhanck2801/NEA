@@ -4,6 +4,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Raycaster extends Line {
+    private double distance;
+    private boolean verticalWall = false;
+    private double angle;
 
     public Raycaster(Color colour, double startX, double startY, double angle){
         super();
@@ -16,6 +19,8 @@ public class Raycaster extends Line {
     public Raycaster getRay(){return this;}
 
     public void updateRay(double x, double y, double angle, int[][] map){
+        this.angle = angle;
+
         setStartX(x);
         setStartY(y);
 
@@ -64,9 +69,6 @@ public class Raycaster extends Line {
         //check if ray has hit wall
         boolean hitWall = false;
 
-        //find if ray has hit veritcal or horizonatl wall
-        boolean isVerticalWall = false;
-
         // loop to move through map until a wall is hit
         while (!hitWall) {
             // check if vertical grid boundary is closest, else
@@ -75,29 +77,26 @@ public class Raycaster extends Line {
                 sideDistX += changeDistX;
                 mapX += stepX;
 
-                isVerticalWall = true;
+                verticalWall = true;
 
             } else {
 
                 sideDistY += changeDistY;
                 mapY += stepY;
 
-                isVerticalWall = false;
+                verticalWall = false;
             }
 
             //Check whether the tile is a wall
             if (mapY < 0 || mapY >= map.length || mapX < 0 || mapX >= map[0].length) {
                 hitWall = true;
             } else if (map[mapY][mapX] == 1) {
-                // We have found a wall
                 hitWall = true;
             }
         }
 
         // Find the distance from sprite to the wall
-        double distance;
-
-        if (isVerticalWall) {
+        if (verticalWall) {
             distance = sideDistX - changeDistX;
         } else {
             distance = sideDistY - changeDistY;
@@ -110,5 +109,17 @@ public class Raycaster extends Line {
 
         setEndX(endX);
         setEndY(endY);
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public boolean isVerticalWall() {
+        return verticalWall;
     }
 }

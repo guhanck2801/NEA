@@ -31,8 +31,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Group root = new Group();
-        Scene scene = new Scene(root,screenWidth, screenHeight);
+        Group topDownView = new Group();
+        Group firstPersonView = new Group();
+        Scene scene = new Scene(new Group(topDownView, firstPersonView),screenWidth, screenHeight);
 
         // Draw the walls
         for (int row = 0; row < MAP.length; row++) {
@@ -51,16 +52,22 @@ public class Main extends Application {
                 } else {
                     wall.setFill((Color.BLACK));
                 }
-                root.getChildren().add(wall);
+                topDownView.getChildren().add(wall);
             }
         }
 
         // Add a player
         Player player = new Player(Color.YELLOW, 300, 300, 8);
-        root.getChildren().add(player);
+        topDownView.getChildren().add(player);
         for (int i = 0; i < player.ray.size(); i++) {
-            root.getChildren().add(player.ray.get(i).getRay());
+            topDownView.getChildren().add(player.ray.get(i).getRay());
         }
+
+        //Create First Person view
+        Renderer renderer = new Renderer((double) screenWidth / 2, screenHeight);
+        renderer.setTranslateX((double) screenWidth / 2);
+
+        firstPersonView.getChildren().add(renderer);
 
         // Add the checks to see if the player has pressed a key
         scene.setOnKeyPressed(e -> player.keyPressed(e.getCode()));
@@ -71,6 +78,7 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 player.movement(MAP);
+                renderer.render(player);
             }
         }.start();
 
