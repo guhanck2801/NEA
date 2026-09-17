@@ -1,0 +1,2 @@
+This repo contains the commit history of my NEA project for my Computer Science A Level. I'm builing an FPS game similar to the original DOOM from 1993 and WOLFENSTEIN 3D. To do this project, I'm using JavaFx to build the the application and using object oriented code to do so. I'm building it off the basis of raycasting
+like the original wolfenstein3D and hoping to transition to BSP. I'll then add different enemy classes that act using A* pathfinding as well as different weapons for the player to use.
