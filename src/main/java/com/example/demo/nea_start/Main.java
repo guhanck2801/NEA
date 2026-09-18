@@ -36,25 +36,7 @@ public class Main extends Application {
         Scene scene = new Scene(new Group(topDownView, firstPersonView),screenWidth, screenHeight);
 
         // Draw the walls
-        for (int row = 0; row < MAP.length; row++) {
-            for (int col = 0; col < MAP[row].length; col++) {
-
-                final int GAP = 1;
-
-                Rectangle wall = new Rectangle(
-                        col * TILE_SIZE,
-                        row * TILE_SIZE,
-                        TILE_SIZE - GAP,
-                        TILE_SIZE - GAP
-                );
-                if (MAP[row][col] == 1) {
-                    wall.setFill(Color.WHITE);
-                } else {
-                    wall.setFill((Color.BLACK));
-                }
-                topDownView.getChildren().add(wall);
-            }
-        }
+        drawMap(topDownView);
 
         // Add a player
         Player player = new Player(Color.YELLOW, 300, 300, 8);
@@ -88,6 +70,28 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Demo");
         stage.show();
+    }
+
+    private static void drawMap(Group topDownView) {
+        for (int row = 0; row < MAP.length; row++) {
+            for (int col = 0; col < MAP[row].length; col++) {
+
+                final int GAP = 1;
+
+                Rectangle wall = new Rectangle(
+                        col * TILE_SIZE,
+                        row * TILE_SIZE,
+                        TILE_SIZE - GAP,
+                        TILE_SIZE - GAP
+                );
+                if (MAP[row][col] == 1) {
+                    wall.setFill(Color.WHITE);
+                } else {
+                    wall.setFill((Color.BLACK));
+                }
+                topDownView.getChildren().add(wall);
+            }
+        }
     }
 
     public static void main(String[] args) {

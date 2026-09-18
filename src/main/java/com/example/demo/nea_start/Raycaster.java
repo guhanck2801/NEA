@@ -94,12 +94,13 @@ public class Raycaster extends Line {
                 hitWall = true;
             }
         }
+        drawLine line = new drawLine(changeDistX, changeDistY, sideDistX, sideDistY);
 
         // Find the distance from sprite to the wall
         if (verticalWall) {
-            distance = sideDistX - changeDistX;
+            distance = line.sideDistX() - line.changeDistX();
         } else {
-            distance = sideDistY - changeDistY;
+            distance = line.sideDistY() - line.changeDistY();
         }
 
         distance *= Main.TILE_SIZE;
@@ -109,6 +110,9 @@ public class Raycaster extends Line {
 
         setEndX(endX);
         setEndY(endY);
+    }
+
+    private record drawLine(double changeDistX, double changeDistY, double sideDistX, double sideDistY) {
     }
 
     public double getAngle() {

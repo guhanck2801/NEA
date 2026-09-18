@@ -4,6 +4,7 @@ module com.example.demo.nea_start {
 
     requires com.almasb.fxgl.all;
     requires javafx.graphics;
+    requires annotations;
 
     opens com.example.demo.nea_start to javafx.fxml;
     exports com.example.demo.nea_start;

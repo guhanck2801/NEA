@@ -6,15 +6,15 @@ import javafx.scene.shape.Rectangle;
 
 public class Renderer extends Group {
 
-    private final double width;
-    private final double height;
+    private final double WIDTH;
+    private final double HEIGHT;
 
     private final double FOV = 60;
 
     public Renderer(double width, double height) {
 
-        this.width = width;
-        this.height = height;
+        this.WIDTH = width;
+        this.HEIGHT = height;
 
         drawBackground();
     }
@@ -25,8 +25,8 @@ public class Renderer extends Group {
         Rectangle sky = new Rectangle(
                 0,
                 0,
-                width,
-                height / 2
+                WIDTH,
+                HEIGHT / 2
         );
 
         sky.setFill(Color.LIGHTBLUE);
@@ -34,9 +34,9 @@ public class Renderer extends Group {
         // Floor
         Rectangle floor = new Rectangle(
                 0,
-                height / 2,
-                width,
-                height / 2
+                HEIGHT / 2,
+                WIDTH,
+                HEIGHT / 2
         );
 
         floor.setFill(Color.DARKGRAY);
@@ -51,11 +51,11 @@ public class Renderer extends Group {
         drawBackground();
 
         double projectionPlane =
-                (width / 2) /
+                (WIDTH / 2) /
                         Math.tan(Math.toRadians(FOV / 2));
 
         double columnWidth =
-                width / player.ray.size();
+                WIDTH / player.ray.size();
 
         for (int i = 0; i < player.ray.size(); i++) {
 
@@ -87,7 +87,7 @@ public class Renderer extends Group {
 
             // Centre wall around horizon
             double y =
-                    (height - wallHeight) / 2;
+                    (HEIGHT - wallHeight) / 2;
 
             Rectangle wallSlice = new Rectangle(
                     x,

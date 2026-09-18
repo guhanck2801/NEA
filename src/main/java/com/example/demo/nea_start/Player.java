@@ -14,11 +14,11 @@ public class Player extends Rectangle {
     // Create array containing all the rays. Typial FOV in a raycaster is 60 degrees.
     public ArrayList<Raycaster> ray = new ArrayList<>();
     private final double FOV  = 60;
-    private final int numRays = Main.screenWidth/2;
+    private final int NUMRAYS = Main.screenWidth/2;
 
     // assign values for max speed and rotation speed
-    private final double maxSpeed = 2.5;
-    private final double rotationSpeed = 2.5;
+    private final double MAXSPEED = 2.5;
+    private final double ROTATIONSPEED = 2.5;
 
 
     // Create the player
@@ -34,8 +34,8 @@ public class Player extends Rectangle {
 
         //create rays that cast of player from the center
         double startAngle = getRotate() - FOV/2;
-        double angleIncrememt = FOV / numRays;
-        for (int i = 0; i < numRays; i++) {
+        double angleIncrememt = FOV / NUMRAYS;
+        for (int i = 0; i < NUMRAYS; i++) {
             ray.add(new Raycaster(Color.RED, getX() + getWidth() / 2, getY() + getHeight() / 2, startAngle + (i*angleIncrememt)));
         }
     }
@@ -70,11 +70,11 @@ public class Player extends Rectangle {
         double angle = Math.toRadians(getRotate());
 
         // calculate the angle of displacement of the player to find out speed along each axis
-        double frontBackVerticalDisplacement = Math.sin(angle) * maxSpeed;
-        double frontBackHorizontalDisplacement = Math.cos(angle) * maxSpeed;
+        double frontBackVerticalDisplacement = Math.sin(angle) * MAXSPEED;
+        double frontBackHorizontalDisplacement = Math.cos(angle) * MAXSPEED;
 
-        double leftRightVerticalDisplacement = Math.cos(angle) * maxSpeed;
-        double leftRightHorizontalDisplacement = Math.sin(angle) * maxSpeed;
+        double leftRightVerticalDisplacement = Math.cos(angle) * MAXSPEED;
+        double leftRightHorizontalDisplacement = Math.sin(angle) * MAXSPEED;
 
         // move the player according to the displacement calculated above
         if (forward)
@@ -86,9 +86,9 @@ public class Player extends Rectangle {
         if (right)
             move(leftRightVerticalDisplacement, leftRightHorizontalDisplacement, map);
         if (rotateLeft)
-            setRotate(getRotate() - rotationSpeed);
+            setRotate(getRotate() - ROTATIONSPEED);
         if (rotateRight)
-            setRotate(getRotate() + rotationSpeed);
+            setRotate(getRotate() + ROTATIONSPEED);
 
         // move the rays based on the players movement#
         double startAngle = getRotate() - FOV / 2;
