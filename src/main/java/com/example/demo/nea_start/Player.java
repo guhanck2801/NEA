@@ -4,6 +4,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.rmi.MarshalledObject;
 import java.util.ArrayList;
 
 public class Player extends Rectangle {
@@ -14,7 +15,7 @@ public class Player extends Rectangle {
     // Create array containing all the rays. Typial FOV in a raycaster is 60 degrees.
     public ArrayList<Raycaster> ray = new ArrayList<>();
     private final double FOV  = 60;
-    private final int NUMRAYS = Main.screenWidth/2;
+    private final int NUMRAYS = Main.screenWidth;
 
     // assign values for max speed and rotation speed
     private final double MAXSPEED = 2.5;
@@ -126,10 +127,10 @@ public class Player extends Rectangle {
         double bottom = y +getHeight();
 
         // Convert the corners into tiles on the map
-        int leftTile = (int) (left / Main.TILE_SIZE);
-        int rightTile = (int) (right / Main.TILE_SIZE);
-        int topTile = (int) (top / Main.TILE_SIZE);
-        int bottomTile = (int) (bottom / Main.TILE_SIZE);
+        int leftTile = (int) (left / Map.TILE_SIZE);
+        int rightTile = (int) (right / Map.TILE_SIZE);
+        int topTile = (int) (top / Map.TILE_SIZE);
+        int bottomTile = (int) (bottom / Map.TILE_SIZE);
 
         // Check all tiles occupied by the player
         for (int tileY = topTile; tileY <= bottomTile; tileY++) {

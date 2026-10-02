@@ -14,41 +14,38 @@ public class Main extends Application {
     public static final int screenWidth = 1024;
     public static final int screenHeight = 512;
 
-    public static final int TILE_SIZE = 64;
-
     // create a map, 1 represents a wall, 0 represents empty space to walk in
     public static final int[][] MAP = {
-            {1,1,1,1,1,1,1,1},
-            {1,0,1,0,0,0,0,1},
-            {1,0,1,0,0,0,0,1},
-            {1,0,1,0,0,0,0,1},
-            {1,0,0,0,0,0,0,1},
-            {1,0,0,0,0,1,0,1},
-            {1,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1}
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1},
+            {1,0,1,0,1,0,1,1,1,0,1,0,1,1,0,1},
+            {1,0,1,0,0,0,0,0,1,0,0,0,0,1,0,1},
+            {1,0,1,1,1,1,0,1,1,1,1,0,0,1,0,1},
+            {1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1},
+            {1,0,0,1,1,1,0,0,0,0,1,0,1,1,0,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
     };
-
     @Override
     public void start(Stage stage) {
 
         Group topDownView = new Group();
         Group firstPersonView = new Group();
-        Scene scene = new Scene(new Group(topDownView, firstPersonView),screenWidth, screenHeight);
+        Scene scene = new Scene(firstPersonView,screenWidth, screenHeight);
+        Scene scene2 = new Scene(topDownView, screenWidth, screenHeight);
 
-        // Draw the walls
-        drawMap(topDownView);
+        // draw the map
+        Map map = new Map(MAP);
+        map.drawMap(topDownView);
 
         // Add a player
-        Player player = new Player(Color.YELLOW, 300, 300, 8);
+        Player player = new Player(Color.YELLOW, 92, 92, 8);
         topDownView.getChildren().add(player);
         for (int i = 0; i < player.ray.size(); i++) {
             topDownView.getChildren().add(player.ray.get(i).getRay());
         }
 
         //Create First Person view
-        Renderer renderer = new Renderer((double) screenWidth / 2, screenHeight);
-        renderer.setTranslateX((double) screenWidth / 2);
-
+        Renderer renderer = new Renderer((double) screenWidth, screenHeight);
         firstPersonView.getChildren().add(renderer);
 
         // Add the checks to see if the player has pressed a key
@@ -70,28 +67,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Demo");
         stage.show();
-    }
-
-    private static void drawMap(Group topDownView) {
-        for (int row = 0; row < MAP.length; row++) {
-            for (int col = 0; col < MAP[row].length; col++) {
-
-                final int GAP = 1;
-
-                Rectangle wall = new Rectangle(
-                        col * TILE_SIZE,
-                        row * TILE_SIZE,
-                        TILE_SIZE - GAP,
-                        TILE_SIZE - GAP
-                );
-                if (MAP[row][col] == 1) {
-                    wall.setFill(Color.WHITE);
-                } else {
-                    wall.setFill((Color.BLACK));
-                }
-                topDownView.getChildren().add(wall);
-            }
-        }
     }
 
     public static void main(String[] args) {

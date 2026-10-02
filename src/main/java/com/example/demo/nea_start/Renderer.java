@@ -79,7 +79,7 @@ public class Renderer extends Group {
 
             // Calculate projected wall height
             double wallHeight =
-                    (Main.TILE_SIZE / correctedDistance)
+                    (Map.TILE_SIZE / correctedDistance)
                             * projectionPlane;
 
             // Horizontal position of this ray

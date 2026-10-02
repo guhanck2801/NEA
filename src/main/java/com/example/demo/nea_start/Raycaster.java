@@ -35,8 +35,8 @@ public class Raycaster extends Line {
         double rayDirY = -Math.cos(Math.toRadians(angle));
 
         //Find whcih maptile the player is currently on
-        int mapX = (int) (x / Main.TILE_SIZE);
-        int mapY = (int) (y / Main.TILE_SIZE);
+        int mapX = (int) (x / Map.TILE_SIZE);
+        int mapY = (int) (y / Map.TILE_SIZE);
 
         // Figure out distnace ray has to travel to cross a whole grid square along both axis
         double changeDistX = Math.abs(1 / rayDirX);
@@ -52,18 +52,18 @@ public class Raycaster extends Line {
         //Find out direction of travel along both axis
         if (rayDirX < 0){
             stepX = -1;
-            sideDistX = (x / Main.TILE_SIZE - mapX) * changeDistX;
+            sideDistX = (x / Map.TILE_SIZE - mapX) * changeDistX;
         } else {
             stepX = 1;
-            sideDistX = (mapX + 1 - x / Main.TILE_SIZE) * changeDistX;
+            sideDistX = (mapX + 1 - x / Map.TILE_SIZE) * changeDistX;
         }
 
         if (rayDirY < 0){
             stepY = -1;
-            sideDistY = (y / Main.TILE_SIZE - mapY) * changeDistY;
+            sideDistY = (y / Map.TILE_SIZE - mapY) * changeDistY;
         } else {
             stepY = 1;
-            sideDistY = (mapY + 1 - y / Main.TILE_SIZE) * changeDistY;
+            sideDistY = (mapY + 1 - y / Map.TILE_SIZE) * changeDistY;
         }
 
         //check if ray has hit wall
@@ -103,7 +103,7 @@ public class Raycaster extends Line {
             distance = line.sideDistY() - line.changeDistY();
         }
 
-        distance *= Main.TILE_SIZE;
+        distance *= Map.TILE_SIZE;
 
         double endX = x + rayDirX * distance;
         double endY = y + rayDirY * distance;
