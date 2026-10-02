@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -28,20 +29,25 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Group topDownView = new Group();
+        Group topDownViewMap = new Group();
         Group firstPersonView = new Group();
-        Scene scene = new Scene(firstPersonView,screenWidth, screenHeight);
-        Scene scene2 = new Scene(topDownView, screenWidth, screenHeight);
+
+        // Stack the scenes on top of each other
+        StackPane root = new StackPane();
+        root.getChildren().add(firstPersonView);
+        root.getChildren().add(topDownViewMap);
+
+        Scene scene = new Scene(root,screenWidth, screenHeight);
 
         // draw the map
         Map map = new Map(MAP);
-        map.drawMap(topDownView);
+        map.drawMap(topDownViewMap);
 
         // Add a player
         Player player = new Player(Color.YELLOW, 92, 92, 8);
-        topDownView.getChildren().add(player);
+        topDownViewMap.getChildren().add(player);
         for (int i = 0; i < player.ray.size(); i++) {
-            topDownView.getChildren().add(player.ray.get(i).getRay());
+            topDownViewMap.getChildren().add(player.ray.get(i).getRay());
         }
 
         //Create First Person view
@@ -49,8 +55,15 @@ public class Main extends Application {
         firstPersonView.getChildren().add(renderer);
 
         // Add the checks to see if the player has pressed a key
-        scene.setOnKeyPressed(e -> player.keyPressed(e.getCode()));
-        scene.setOnKeyReleased(e -> player.keyReleased(e.getCode()));
+        scene.setOnKeyPressed(e -> {
+            player.keyPressed(e.getCode());
+            map.keyPressed(e.getCode());
+        });
+        scene.setOnKeyReleased(e -> {
+            player.keyReleased(e.getCode());
+            map.keyReleased(e.getCode());
+        });
+
 
         // create game loop for player movement
         new AnimationTimer() {
@@ -58,6 +71,10 @@ public class Main extends Application {
             public void handle(long now) {
                 player.movement(MAP);
                 renderer.render(player);
+                topDownViewMap.setOpacity(0);
+                if (map.openMap){
+                    topDownViewMap.setOpacity(0.3);
+                }
             }
         }.start();
 
