@@ -23,14 +23,17 @@ public class Map {
             for (int col = 0; col < MAP[row].length; col++) {
 
                 // add grid lines between tiles
-                final int GAP = 1;
+
+                // final int GAP = 1;
 
                 // create tile
                 Rectangle wall = new Rectangle(
                         col * TILE_SIZE,
                         row * TILE_SIZE,
-                        TILE_SIZE - GAP,
-                        TILE_SIZE - GAP
+                        TILE_SIZE,
+                        TILE_SIZE
+                        //TILE_SIZE - GAP,
+                        //TILE_SIZE - GAP
                 );
 
                 if (MAP[row][col] == 1) {
@@ -44,13 +47,14 @@ public class Map {
             }
         }
     }
+    // Display map if TAB key pressed
     public void keyPressed(KeyCode key) {
         switch (key) {
             case TAB -> openMap = true;
         }
     }
 
-    // say player stop moving if key has been released
+    // Stop displaying map if TAB key released
     public void keyReleased(KeyCode key) {
         switch (key) {
             case TAB -> openMap = false;

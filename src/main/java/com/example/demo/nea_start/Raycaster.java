@@ -35,7 +35,7 @@ public class Raycaster extends Line {
         double rayDirY = -Math.cos(Math.toRadians(angle));
 
         //Find whcih maptile the player is currently on
-        int mapX = (int) (x / Map.TILE_SIZE);
+        int mapX = (int) (x / Map.TILE_SIZE) ;
         int mapY = (int) (y / Map.TILE_SIZE);
 
         // Figure out distnace ray has to travel to cross a whole grid square along both axis

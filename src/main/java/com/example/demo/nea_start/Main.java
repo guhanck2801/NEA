@@ -32,11 +32,12 @@ public class Main extends Application {
         Group topDownViewMap = new Group();
         Group firstPersonView = new Group();
 
-        // Stack the scenes on top of each other
+        // Stack the map and game scenes on top of each other
         StackPane root = new StackPane();
         root.getChildren().add(firstPersonView);
         root.getChildren().add(topDownViewMap);
 
+        // add the scenes to stage
         Scene scene = new Scene(root,screenWidth, screenHeight);
 
         // draw the map
@@ -71,9 +72,11 @@ public class Main extends Application {
             public void handle(long now) {
                 player.movement(MAP);
                 renderer.render(player);
+
+                // Display map if TAB key is pressed
                 topDownViewMap.setOpacity(0);
                 if (map.openMap){
-                    topDownViewMap.setOpacity(0.3);
+                    topDownViewMap.setOpacity(0.35);
                 }
             }
         }.start();
