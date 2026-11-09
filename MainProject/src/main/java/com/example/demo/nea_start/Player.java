@@ -4,7 +4,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.rmi.MarshalledObject;
 import java.util.ArrayList;
 
 public class Player extends Rectangle {
