@@ -105,8 +105,8 @@ public class Raycaster extends Line {
 
         distance *= Map.TILE_SIZE;
 
-        double endX = x + (rayDirX * distance)-1;
-        double endY = y + (rayDirY * distance)-1;
+        double endX = (x + rayDirX * distance)-1;
+        double endY = (y + rayDirY * distance)+1;
 
         setEndX(endX);
         setEndY(endY);
